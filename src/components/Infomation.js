@@ -9,7 +9,7 @@ export default function Infomation(){
     let {contactId} = useParams();
     useEffect(()=>{
         if(contactId){
-            axios.get(`https://my-json-server.typicode.com/codegym-vn/mock-api-contacts/contacts/${contactId}`)
+            axios.get(`https://63d3f1efa93a149755b6945d.mockapi.io/api/users/${contactId}`)
             .then(res=>setContacts(res.data))
             .catch(e=>alert(e))
         }
@@ -22,25 +22,24 @@ export default function Infomation(){
     const onClick=(e)=>{
         e.preventDefault();
         if(contactId){
-            axios.put(`https://my-json-server.typicode.com/codegym-vn/mock-api-contacts/contacts/${contacts.id}`,contacts)
+            axios.put(`https://63d3f1efa93a149755b6945d.mockapi.io/api/users/${contacts.id}`,contacts)
             .then(res=>{alert(`Sửa thành công tại id: ${res.data.id}`)
                 navigate('/');
             })
             .catch(e=>console.log(e))
         }
         else{
-            axios.post('https://my-json-server.typicode.com/codegym-vn/mock-api-contacts/contacts',contacts)
+            axios.post('https://63d3f1efa93a149755b6945d.mockapi.io/api/users/',contacts)
             .then(res=>{alert(`Thêm mới thành công : "${res.data.name}"`)
                 navigate('/');
             })
             .catch(e=>console.log(e))
         }
-       
+    
     }
 
     const getPic= e=>{
         console.log( e.target.files[0])
-        // setSelectFile(e.target.value.name)
     }
 
 
@@ -50,13 +49,14 @@ export default function Infomation(){
             <div className='w-25 mt-5'>
                 <form onSubmit={onClick} >
                     <div className='hstack'>
-                        <div 
-                            className='rounded-circle 
-                            list-group-item-dark
-                            d-inline-block'
-                        style={{width:"50px", height:"50px",
-                        }}>
-                           <img src= { contacts.image||""}/>
+                        <div>
+                                <img 
+                                width="50px" 
+                                height="50px" 
+                                className='rounded-circle 
+                                    list-group-item-dark
+                                    d-inline-block' 
+                                    src= { contacts.image|| ""}/>
                         </div>
                         <div className='d-inline-block w-25 mx-2'>
                         <input 

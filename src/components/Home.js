@@ -8,7 +8,7 @@ export default function Home(){
    let navigate = useNavigate();
    useEffect(
     ()=>{
-        axios.get("https://my-json-server.typicode.com/codegym-vn/mock-api-contacts/contacts")
+        axios.get("https://63d3f1efa93a149755b6945d.mockapi.io/api/users")
     .then(res=>getContact(res.data))
     .catch(e=>alert(e))
     }
@@ -19,8 +19,12 @@ export default function Home(){
    }
     
    const onDelete=(e)=>{
-        if(window.confirm(`Bạn có chắc chắn muốn xóa : ${e.target.id}`)){
-            getContact(contacts.filter(contact=> +contact.id!==+e.target.id));
+        if(window.confirm(`Bạn có chắc chắn muốn xóa : ${e.target.name}`)){
+            // getContact(contacts.filter(contact=> +contact.id!==+e.target.id));
+            axios.delete(`https://63d3f1efa93a149755b6945d.mockapi.io/api/users/${e.target.id}`)
+            .then(res=>getContact(contacts.filter(contact=>contact.id!==res.data.id)))
+            .catch(e=>alert(e))
+            
         }
    }
 
@@ -53,7 +57,7 @@ export default function Home(){
                                             className='rounded-5'
                                             width="35px" 
                                             height="35px" 
-                                            src={contact.image||''}
+                                            src={contact.image}
                                             alt="" />
                                         {contact.name}
                                     </td>
@@ -74,7 +78,9 @@ export default function Home(){
                                                 className=' btn btn-warning '>
                                                  Edit
                                         </button>
-                                        <button id={contact.id} 
+                                        <button
+                                                name={contact.name}
+                                                id={contact.id} 
                                                 onClick={onDelete}
                                                  className=' btn btn-danger'
                                                 >Delete
