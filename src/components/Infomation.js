@@ -38,8 +38,14 @@ export default function Infomation(){
     
     }
 
-    const getPic= e=>{
-        console.log( e.target.files[0])
+    const getPic= ({target})=>{
+        if(target.files[0]){
+            const reader = new FileReader();
+            reader.addEventListener("load",function(){
+                setContacts({...contacts,'image': this.result});
+            });
+            reader.readAsDataURL(target.files[0])
+         }
     }
 
 
